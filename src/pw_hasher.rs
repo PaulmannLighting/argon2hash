@@ -18,10 +18,9 @@ where
     /// # Errors
     /// Returns an [`argon2::password_hash::Error`] if hashing fails.
     pub fn hash(&mut self, password: &[u8]) -> Result<String> {
-        Ok(self
-            .argon2
-            .hash_password(password, &SaltString::generate(&mut self.csprng))?
-            .to_string())
+        self.argon2
+            .hash_password(password, &SaltString::generate(&mut self.csprng))
+            .map(|hash| hash.to_string())
     }
 }
 
