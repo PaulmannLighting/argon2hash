@@ -11,7 +11,7 @@ fn main() {
     if args.is_base64() {
         args.b64content().for_each(|(line, bytes)| {
             println!(
-                "{line}\t{}",
+                "{line} (base64)\t{}",
                 hasher.hash(bytes.as_slice()).expect(HASH_ERROR)
             );
         });
