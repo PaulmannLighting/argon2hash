@@ -1,6 +1,4 @@
-use argon2::{
-    password_hash::Result, password_hash::SaltString, Argon2, PasswordHasher, PasswordVerifier,
-};
+use argon2::{password_hash::Result, password_hash::SaltString, Argon2, PasswordHasher};
 use rand_core::{CryptoRngCore, SeedableRng};
 
 pub struct PwHasher<'key, R>
@@ -24,14 +22,6 @@ where
             .argon2
             .hash_password(password, &SaltString::generate(&mut self.csprng))?
             .to_string())
-    }
-
-    /// Verifies a password.
-    ///
-    /// # Errors
-    /// Returns an [`argon2::password_hash::Error`] if verification fails.
-    pub fn verify_password(&mut self, password: &[u8], hash: &str) -> Result<()> {
-        self.argon2.verify_password(password, &hash.try_into()?)
     }
 }
 
