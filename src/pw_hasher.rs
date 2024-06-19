@@ -29,7 +29,7 @@ where
     R: CryptoRngCore + SeedableRng,
 {
     fn default() -> Self {
-        Self::from(R::from_entropy())
+        R::from_entropy().into()
     }
 }
 
