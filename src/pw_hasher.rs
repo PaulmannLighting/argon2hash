@@ -29,9 +29,18 @@ where
     R: CryptoRngCore + SeedableRng,
 {
     fn default() -> Self {
+        Self::from(R::from_entropy())
+    }
+}
+
+impl<R> From<R> for PwHasher<'_, R>
+where
+    R: CryptoRngCore,
+{
+    fn from(csprng: R) -> Self {
         Self {
-            csprng: R::from_entropy(),
             argon2: Argon2::default(),
+            csprng,
         }
     }
 }
